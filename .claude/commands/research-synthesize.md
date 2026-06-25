@@ -60,7 +60,7 @@ Write `<run-root>/run.json`. This is the machine-readable record that makes the 
   "grounding": { "supported": "<N>", "checked": "<N>", "refused": "<N>" },
   "refused_ever": "<true | false — did any cycle refuse a claim, even if remediation later cleared it>",
   "cycles_detail": [
-    { "cycle": "<N>", "grounding": "<supported>/<checked>", "refused": "<N>", "decision": "<re-research | supplement-gap | go-deeper | re-retrieve | STOP:criterion-met | STOP:governor>" }
+    { "cycle": "<N>", "grounding": "<supported>/<checked>", "refused": "<N>", "partials": "<N>", "decision": "<re-research | supplement-gap | go-deeper | re-retrieve | STOP:criterion-met | STOP:governor>" }
   ]
 }
 ```
