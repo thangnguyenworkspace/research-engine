@@ -1,0 +1,19 @@
+# Local build artifact — the raw build reasoning, not part of the public evidence
+decision-log.md
+
+# Ad-hoc run traces land here by default; the shipped sample lives under examples/
+runs/
+
+# Secrets
+.env
+.env.*
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
