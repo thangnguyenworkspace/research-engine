@@ -8,6 +8,7 @@ The naming, folder, and trace rules every part of the engine follows. The point 
 research-engine/
 ├── README.md              human entry: what it is, what it proves
 ├── AGENTS.md              agent entry: how to operate / ingest the repo
+├── CLAUDE.md              the same orientation, read by Claude Code
 ├── LICENSE                MIT
 ├── .claude/
 │   ├── commands/          the skills (composer + leaves)
@@ -16,8 +17,10 @@ research-engine/
 │   └── research-brief.md  the intake contract
 ├── docs/
 │   ├── architecture.md    the settled design
-│   └── conventions.md     this file
-└── examples/              a committed sample run (a complete trace tree)
+│   ├── conventions.md     this file
+│   └── source-catalog.md  the v1 selection knowledge base
+├── examples/              a committed sample run (a complete trace tree)
+└── runs/                  ad-hoc run traces land here (gitignored)
 ```
 
 ## 2. Skill naming

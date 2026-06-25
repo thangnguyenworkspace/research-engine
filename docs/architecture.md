@@ -59,6 +59,8 @@ The controller decides what the engine does after each cycle. Its defining const
 6. otherwise                          -> STOP -> synthesize
 ```
 
+In v1's keyless stack every sub-question gets at least a web source, so coverage and confidence rarely fall below their thresholds — the contradiction rung (a verifier refusal or an unresolved tension) is the primary live path, and ladder rungs 2–4 mainly fire under a retrieval failure. The full ladder is the documented end-state, exercised more as the source stack and the adaptive controller grow (§6).
+
 The adversarial verifier feeds the loop rather than gating it at the end: its refusals are a contradiction signal that can trigger re-research, so contestation shapes the research instead of rubber-stamping it.
 
 ## 4. The adversarial verifier

@@ -1,6 +1,6 @@
-# AGENTS.md
+# CLAUDE.md
 
-Entry point for an agent operating or ingesting this repository. Claude Code reads [CLAUDE.md](CLAUDE.md); this file is its near-identical twin — if you change one, change the other.
+Entry point for Claude Code operating or ingesting this repository. This is the near-identical twin of [AGENTS.md](AGENTS.md) (which Codex and other harnesses read) — if you change one, change the other.
 
 ## What this is
 
