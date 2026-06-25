@@ -22,9 +22,9 @@ The engine proposes a value for each; the user adjusts or accepts.
 |---|---|---|
 | `scope` | What is explicitly in and out of bounds. | Inferred from the objective; confirmed. |
 | `depth` | One of `quick`, `standard`, or `deep`. Sets the controller's cycle ceiling (1 / 2 / 3). | `standard` |
-| `recency` | How fresh the evidence must be. | No constraint unless the objective implies one. |
+| `recency` | How fresh the evidence must be. Weighed by source selection as a freshness preference, not a hard filter. | No constraint unless the objective implies one. |
 | `claim_types` | The kinds of claims expected — factual, quantitative, regulatory, competitive, technical. Routes source selection. | Inferred from the objective. |
-| `reproducibility` | `reproducible` (free sources only) or `checkable-ok` (paid sources allowed when load-bearing). | `reproducible` |
+| `reproducibility` | `reproducible` (free sources only) or `checkable` (paid sources allowed when load-bearing — the run is then labelled `checkable`, not `reproducible`). | `reproducible` |
 | `budget` | Optional spend hint recorded with the run. In v1 the cycle ceiling comes from `depth`; a spend cap is recorded, not yet enforced. | Set from `depth`. |
 
 ## Optional

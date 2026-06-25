@@ -29,7 +29,7 @@ Honesty about provenance is absolute: report only what you actually fetched and 
 
 ## Write
 
-Write `<run-root>/verify/contestation.md`. One block per claim, then the summary:
+Write `<run-root>/verify/contestation.md` — the live contestation for the current cycle. (On a remediation cycle the composer first archives the prior cycle's file to `verify/contestation.cycle-NN.md`, so every cycle's verdicts — including a refusal that drove a re-research — stay inspectable.) One block per claim, then the summary:
 
 ```markdown
 # Contestation

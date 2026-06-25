@@ -9,7 +9,7 @@ One job: turn the consolidated draft into the deliverable the brief asked for, a
 
 ## Input
 
-The composer gives you the run root, the cycles run, and the final stop-reason. Read `<run-root>/brief.md` (the requested `deliverable` form and any `format_constraints`), `<run-root>/consolidate/synthesis.draft.md` (the tagged claims), and `<run-root>/verify/contestation.md` (the per-claim verdicts). The contestation is authoritative: a claim's verdict governs whether and how it may appear in the result.
+The composer gives you the run root, the cycles run, and the final stop-reason. Read `<run-root>/brief.md` (the requested `deliverable` form and any `format_constraints`), `<run-root>/consolidate/synthesis.draft.md` (the tagged claims), `<run-root>/verify/contestation.md` (the per-claim verdicts), and `<run-root>/controller/loop-log.md` (the per-cycle signal history, so `run.json` can record whether any earlier cycle refused before remediation cleared it). The contestation is authoritative: a claim's verdict governs whether and how it may appear in the result.
 
 ## Write — the deliverable
 
@@ -57,9 +57,15 @@ Write `<run-root>/run.json`. This is the machine-readable record that makes the 
   "reproducibility": "reproducible",
   "cycles": "<number of controller cycles run>",
   "stop_reason": "<criterion-met | governor>",
-  "grounding": { "supported": "<N>", "checked": "<N>", "refused": "<N>" }
+  "grounding": { "supported": "<N>", "checked": "<N>", "refused": "<N>" },
+  "refused_ever": "<true | false — did any cycle refuse a claim, even if remediation later cleared it>",
+  "cycles_detail": [
+    { "cycle": "<N>", "grounding": "<supported>/<checked>", "refused": "<N>", "decision": "<re-research | supplement-gap | go-deeper | re-retrieve | STOP:criterion-met | STOP:governor>" }
+  ]
 }
 ```
+
+`refused_ever` + `cycles_detail` (read from `controller/loop-log.md`) keep a cleared refusal visible in the machine record: the final `grounding.refused` can be 0 while `refused_ever` is true — that is exactly the differentiator firing and then being remediated, not a checkbox that never trips.
 
 Set `reproducibility` per conventions §6: `reproducible` only if every source used was free/keyless (all v1 sources are open, so a clean v1 run is `reproducible`); `checkable` if any paid or gated source was load-bearing — the v1 catalog has none, so this should be `reproducible` unless something changed. Never label a run `reproducible` when a paid source carried a load-bearing claim.
 

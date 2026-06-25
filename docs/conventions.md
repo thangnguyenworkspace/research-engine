@@ -16,9 +16,7 @@ research-engine/
 │   └── research-brief.md  the intake contract
 ├── docs/
 │   ├── architecture.md    the settled design
-│   ├── conventions.md     this file
-│   └── decisions/         curated decision records (ADR-style)
-├── scripts/               deterministic helpers
+│   └── conventions.md     this file
 └── examples/              a committed sample run (a complete trace tree)
 ```
 
@@ -45,7 +43,8 @@ Every run scaffolds one folder at the brief's `output_path`, named with the run 
 ├── consolidate/
 │   └── synthesis.draft.md       working synthesis; every claim tagged CLM-NN → sources
 ├── verify/
-│   └── contestation.md          per claim: challenge, evidence check, verdict
+│   ├── contestation.md          per claim: challenge, evidence check, verdict (the live/final cycle)
+│   └── contestation.cycle-NN.md  a superseded cycle, archived before a remediation re-ran the verifier — keeps a refusal that drove a re-research inspectable
 ├── controller/
 │   └── loop-log.md              per cycle: signals read → action taken → why
 ├── synthesis/
@@ -71,7 +70,7 @@ Numbering starts at `01` within its scope (sub-questions run engine-wide; source
 ## 5. Run id and metadata
 
 - **Run id:** `{YYYYMMDD}-{HHMMSS}-{slug}`, where `slug` is a short kebab form of the objective. Sortable and unique.
-- **`run.json`** carries the machine-readable record: run id, brief digest, cycles run, budget allotted vs spent, governor stop reason, the source access tiers used, and the reproducibility verdict (`reproducible` | `checkable`). This is what makes a run independently checkable without reading every file.
+- **`run.json`** carries the machine-readable record: run id, brief digest, cycles run, the per-cycle grounding history (`cycles_detail` + `refused_ever`, so a refusal in any cycle stays visible even after remediation clears it), governor stop reason, the source access tiers used, and the reproducibility verdict (`reproducible` | `checkable`). This is what makes a run independently checkable without reading every file.
 
 ## 6. Reproducibility labelling
 

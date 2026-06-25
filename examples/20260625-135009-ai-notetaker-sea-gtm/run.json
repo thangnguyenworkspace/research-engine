@@ -9,5 +9,10 @@
   "reproducibility": "reproducible",
   "cycles": 2,
   "stop_reason": "criterion-met",
-  "grounding": { "supported": 33, "checked": 33, "refused": 0 }
+  "grounding": { "supported": 33, "checked": 33, "refused": 0 },
+  "refused_ever": true,
+  "cycles_detail": [
+    { "cycle": 1, "grounding": "26/34", "refused": 1, "partials": 7, "decision": "re-research" },
+    { "cycle": 2, "grounding": "33/33", "refused": 0, "decision": "STOP:criterion-met" }
+  ]
 }

@@ -15,8 +15,6 @@ Entry point for an agent operating or ingesting this repository.
 | `schema/research-brief.md` | The intake contract: the brief every run is built from. |
 | `docs/architecture.md` | The settled architecture — pipeline, controller, governor, reproducibility. |
 | `docs/conventions.md` | Naming, folder, and trace conventions. Read before producing any artifact. |
-| `docs/decisions/` | Decision records (curated, public). |
-| `scripts/` | Deterministic helpers — source adapters, governor accounting, grounding scorer. |
 | `examples/` | A committed sample run — a complete trace tree to read. |
 
 ## How to operate it
@@ -25,7 +23,7 @@ Entry point for an agent operating or ingesting this repository.
 2. A run starts from a locked brief (`schema/research-brief.md`). Do not begin retrieval until the brief is complete — the intake interview backfills missing fields.
 3. Write every intermediate artifact to the run's trace folder at the brief's `output_path`. Nothing about a run should be untraceable.
 4. The controller is deterministic. Read the signals, apply the documented policy, log the decision. Never substitute your own judgement for the routing policy.
-5. The verifier is independent by construction: a separate agent, a separate source set, a mandate to refuse. Do not let the author of a claim also verify it.
+5. The verifier is independent by construction: a separate agent that re-fetches the cited sources itself (not the author's `retrieve/` files) and may run one corroboration query, with a mandate to refuse. Do not let the author of a claim also verify it.
 
 ## Conventions that bind you
 

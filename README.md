@@ -17,14 +17,14 @@ You give it a research objective and an output location. It then:
 5. **Contests** load-bearing claims with an independent verifier that can refuse the unsupported ones.
 6. **Synthesizes** a final, defensible result with its full provenance and a confidence record.
 
-A deterministic controller decides what to do after each cycle from explicit signals — coverage, confidence, gaps, contradictions — rather than an opaque "the model decides," and a budget-and-depth governor bounds every run so a stranger can re-run it without unbounded spend.
+A deterministic controller decides what to do after each cycle from explicit signals — coverage, confidence, gaps, contradictions — rather than an opaque "the model decides," and a depth-ceiling governor bounds every run's cycles so a stranger can re-run it without an unbounded loop (a spend cap is recorded and designed, not yet enforced — see [docs/architecture.md](docs/architecture.md) §6).
 
 ## What makes it different
 
 - **Contestation, not just citation.** A separate verifier with its own sources attacks each load-bearing claim and can refuse it. Citation-checkers confirm a quote exists; this asks whether the evidence actually supports the claim.
 - **Inspectable selection and trust.** For every source: why this one, why not the others, how fresh, how primary, how far trusted — written down, not hidden inside a tool call.
 - **Open and reproducible.** The default source set is free and keyless. When a paid source is unavoidable, the run is labelled *checkable*, not *reproducible* — honestly, per source.
-- **Bounded by design.** A measurable stopping rule and a hard budget make every run terminate and stay affordable to repeat.
+- **Bounded by design.** A measurable stopping rule and a depth/cycle ceiling make every run terminate; the per-run spend cap is recorded and designed, not yet enforced.
 
 ## How a run is laid out
 
@@ -32,7 +32,7 @@ Each run scaffolds a complete, traceable folder at the path you give it — the 
 
 ## Reproducing a run
 
-A complete, unedited example lives under [examples/](examples/) — a GTM market-opportunity brief built from web, OpenAlex, and World Bank sources. Read it in trace order: `brief.md` → `decompose/` → `select/` → `retrieve/` → `consolidate/` → `verify/contestation.md` → `controller/loop-log.md` → `synthesis/result.md`. Because every source in that run is free and keyless, the central result is re-runnable from the same brief.
+A complete, unedited example lives under [examples/](examples/) — a GTM market-opportunity brief built from web, OpenAlex, and World Bank sources. Read it in trace order: `brief.md` → `decompose/` → `select/` → `retrieve/` → `consolidate/` → `verify/contestation.md` → `controller/loop-log.md` → `synthesis/result.md`. In that run the verifier **refused a real claim** in cycle 1 (a Gong positioning cited to a page that never mentions Gong), which drove a re-research that lifted grounding from 26/34 to 33/33 — the refusal and its history are recorded in `verify/contestation.md` (its cycle-1 note and the disposition table), `controller/loop-log.md`, and `run.json` (`refused_ever`). Because every source in that run is free and keyless, the central result is re-runnable from the same brief — open web pages may drift over time, while the OpenAlex and World Bank spine is exactly reproducible.
 
 ## License
 

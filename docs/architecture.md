@@ -1,6 +1,6 @@
 # Architecture
 
-The design of record for `research-engine`. It describes the whole engine and marks clearly what ships in the current version versus what is designed but not yet built. The build is staged; this document leads the build, so a section describing the verifier or controller is the target the code is held to, not a claim that it already runs. The composer's `## Not yet wired` note is always the honest statement of what the current code actually executes.
+The design of record for `research-engine`. It describes the whole engine and marks clearly what ships in the current version versus what is designed but not yet built. The build is staged; this document leads the build, so a section describing the verifier or controller is the target the code is held to, not a claim that it already runs. Each skill states inline what it actually wires versus what it defers (e.g. the composer's `How a run loops` note), and §6 below is the canonical ships-now-versus-designed split.
 
 ## 1. What the engine is
 
@@ -63,7 +63,7 @@ The adversarial verifier feeds the loop rather than gating it at the end: its re
 
 ## 4. The adversarial verifier
 
-The headline. An independent verifier — a separate agent, given a separate source set and an explicit mandate to break the claim — challenges each load-bearing claim against its cited evidence and returns a verdict: `supported`, `partial`, or `unsupported / refuse`. Independence is a hard design rule: the agent that authored a claim never verifies it, because same-author self-critique shares the author's blind spots. Judge-bias controls (reference-guided grading; no knowledge of which path produced a claim) apply. Verifiability is operationalized FACT-style: extract each claim-source pair, fetch the source, judge whether it supports the claim, and report both accuracy and how many claims were even checkable — penalizing un-cited claims rather than ignoring them.
+The headline. An independent verifier — a separate agent that re-fetches each cited source itself (never trusting the author's `retrieve/` files) and may run one corroboration query, with an explicit mandate to break the claim — challenges each load-bearing claim against its cited evidence and returns a verdict: `supported`, `partial`, or `unsupported / refuse`. Independence is a hard design rule: the agent that authored a claim never verifies it, because same-author self-critique shares the author's blind spots. Judge-bias controls (reference-guided grading; no knowledge of which path produced a claim) apply. Verifiability is operationalized FACT-style: extract each claim-source pair, fetch the source, judge whether it supports the claim, and report both accuracy and how many claims were even checkable — penalizing un-cited claims rather than ignoring them.
 
 The verdicts are an inspectable artifact (`verify/contestation.md`) and, doubled, the contradiction signal the controller reads.
 
@@ -71,7 +71,7 @@ The verdicts are an inspectable artifact (`verify/contestation.md`) and, doubled
 
 A run is bounded so it terminates and stays cheap enough to repeat — the same mechanism that makes reproducibility affordable.
 
-- **Budget + depth ceiling.** A hard cap on spend and on cycles/recursion depth, set from the brief's `depth`. When the ceiling is hit, the controller force-stops and synthesizes from what it has, recording the stop reason.
+- **Depth/cycle ceiling.** A hard cap on cycles and recursion depth, set from the brief's `depth` (a spend cap is recorded but not yet enforced — see §6). When the ceiling is hit, the controller force-stops and synthesizes from what it has, recording the stop reason.
 - **Measurable stopping criterion.** The loop stops when coverage and confidence clear their thresholds and no contradiction is pending — a measured condition, not a felt one.
 - **Reproducibility by type.** Each run is labelled by the weakest source it relied on: `reproducible` (every source free/keyless — a stranger re-runs and gets the same central result) or `checkable` (a paid/gated source was load-bearing — checkable against the trace, not freely re-runnable). The label and its cause are recorded in `run.json`. Because the engine ships as a skill bundle, "a stranger" means a Claude Code user; stated plainly rather than implied.
 
@@ -84,8 +84,8 @@ The current version is a deliberately scoped v1 — the smallest thing that runs
 | Pipeline | Full straight-through: decompose -> select -> retrieve -> consolidate -> synthesize | — |
 | Source stack | 3 keyless sources (web, OpenAlex, World Bank) | The full ~95-source catalog across 8 clusters |
 | Selection | Deterministic trigger -> shortlist -> fit + verifiability scoring, logged | CRAG-style escalation ladder |
-| Verifier | A real, scoped, refuse-capable pass backed by a FACT-style grounding check | Multi-round adversarial rounds driven by the controller |
+| Verifier | A real, scoped, refuse-capable pass (re-fetches cited sources + ≤1 corroboration query) backed by a FACT-style grounding check | Multi-round adversarial rounds + an independent separate-source-set, driven by the controller |
 | Controller | Fixed-few cycles + the priority ladder | The full adaptive loop; a novelty/saturation signal |
-| Governor | Hard budget + depth ceiling + measurable stop | Per-source call budgeting |
+| Governor | Depth/cycle ceiling + measurable stop (criterion-met) | A hard spend cap + per-source call budgeting |
 
 The commitment from the differentiator stands regardless of scope: v1 must ship a verifier that *visibly refuses* on the sample run, not a checkbox that never fires.

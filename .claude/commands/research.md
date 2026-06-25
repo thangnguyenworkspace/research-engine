@@ -19,7 +19,7 @@ Compare the user's request against `schema/research-brief.md`. The three require
 
 Run a guided interview of **at most five questions** to lock the brief:
 - `output_path` is mandatory — always ask it if the user did not give a directory.
-- For each missing recommended field, propose the schema default and ask the user to accept or adjust (`scope` inferred from the objective, `depth: standard`, `recency` none-unless-implied, `claim_types` inferred, `reproducibility: reproducible`, `budget` from depth). Note: this version has no governor, so `depth` and `budget` are recorded in the brief but do not bound execution yet.
+- For each missing recommended field, propose the schema default and ask the user to accept or adjust (`scope` inferred from the objective, `depth: standard`, `recency` none-unless-implied, `claim_types` inferred, `reproducibility: reproducible`, `budget` from depth). Note: `depth` sets the controller's cycle ceiling (quick=1/standard=2/deep=3) and bounds the run; `budget` is recorded but the spend cap is not yet enforced (per-source budgeting is designed-not-shipped — see `docs/architecture.md` §6).
 - Recommend a value for everything; do not interrogate. If the objective makes a field obvious, state your inferred value and let the user correct it rather than asking blind.
 - Stop at five questions. Fill anything still open with the schema default and note it in the locked brief.
 
@@ -51,7 +51,7 @@ Invoke the leaves via the Skill tool. Prefer to run each in its own sub-agent so
 
 6. **`/research-control`** — input: the run root, the current cycle number (start at 1), and the brief's `depth`. It computes the four signals, applies the governor + priority ladder, appends to `controller/loop-log.md`, and returns a decision.
    - **`STOP`** (criterion-met or governor) → leave the loop, go to synthesize.
-   - A **remediation** (`re-research` / `supplement-gap` / `go-deeper` / `re-retrieve`) → re-run only the targeted sub-questions/claims back through select → retrieve → consolidate, then `/research-verify` again, then call `/research-control` with the cycle number incremented. Never synthesize while a refusal stands and cycles remain.
+   - A **remediation** (`re-research` / `supplement-gap` / `go-deeper` / `re-retrieve`) → first archive the standing `verify/contestation.md` to `verify/contestation.cycle-NN.md` (NN = the cycle that just ran) so that cycle's verdicts — including any refusal that triggered this remediation — stay inspectable; then re-run only the targeted sub-questions/claims through retrieve → consolidate (re-selecting sources as needed — in v1 the re-selection rationale is captured inline in the new `retrieve/` artifacts rather than re-emitted to the selection log), then `/research-verify` again (it writes a fresh `verify/contestation.md` for the new cycle), then call `/research-control` with the cycle number incremented. Never synthesize while a refusal stands and cycles remain.
    - The governor guarantees termination: `research-control` force-stops at the depth ceiling, so the loop cannot run forever. Track the cycle count and the final stop-reason to pass to synthesize.
 
 ### Synthesize
@@ -65,6 +65,6 @@ Each leaf returns a short summary. Carry only the summary forward; the artifacts
 Tell the user:
 - The final deliverable path: `<run-id>/synthesis/result.md`.
 - The run root, so they can read the full trace.
-- The contestation outcome from `verify/contestation.md`: the grounding score and how many claims were refused.
+- The contestation outcome from `verify/contestation.md`: the grounding score and how many claims were refused (and, from `run.json`, whether any earlier cycle refused before remediation cleared it).
 - The reproducibility verdict and the cycles run, from `run.json`.
 - One line that v1 ships a bounded loop, not the full multi-round adaptive controller (see `docs/architecture.md` §6), so the user knows what ran.
