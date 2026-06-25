@@ -21,11 +21,11 @@ The engine proposes a value for each; the user adjusts or accepts.
 | Field | What it is | Default |
 |---|---|---|
 | `scope` | What is explicitly in and out of bounds. | Inferred from the objective; confirmed. |
-| `depth` | Quick scan, standard, or deep. Maps to the governor's cycle and budget ceiling. | `standard` |
+| `depth` | One of `quick`, `standard`, or `deep`. Sets the controller's cycle ceiling (1 / 2 / 3). | `standard` |
 | `recency` | How fresh the evidence must be. | No constraint unless the objective implies one. |
 | `claim_types` | The kinds of claims expected — factual, quantitative, regulatory, competitive, technical. Routes source selection. | Inferred from the objective. |
 | `reproducibility` | `reproducible` (free sources only) or `checkable-ok` (paid sources allowed when load-bearing). | `reproducible` |
-| `budget` | Hard ceiling on spend and depth for this run. | Set from `depth`. |
+| `budget` | Optional spend hint recorded with the run. In v1 the cycle ceiling comes from `depth`; a spend cap is recorded, not yet enforced. | Set from `depth`. |
 
 ## Optional
 
@@ -47,10 +47,10 @@ output_path: "~/research/ai-notetakers"
 scope:
   in: ["sales-team use cases", "vendors with public pricing"]
   out: ["general-purpose transcription", "consumer apps"]
-depth: standard
+depth: standard          # standard -> 2-cycle ceiling
 recency: "last 12 months"
 claim_types: [competitive, quantitative]
 reproducibility: reproducible
-budget: { cycles: 3, usd: 2.00 }
+budget: { usd: 2.00 }     # recorded; v1 bounds the run by depth's cycle ceiling
 known_sources: []
 ```
