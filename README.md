@@ -4,7 +4,7 @@ A research engine that contests its own findings and shows its work.
 
 Most deep-research tools cite their sources but never argue with them, and none show why they trusted one source over another. `research-engine` makes two things into first-class, inspectable artifacts: a refuse-capable adversarial verification pass that can return *the evidence does not support this*, and a per-source selection-and-trust log that records why each source was chosen, why others were rejected, and how far each was trusted. Every run is open and reproducible over a stack of real, mostly free public sources.
 
-> **Status: scaffolding.** The architecture and conventions are settled; the pipeline is being built in stages. See [docs/architecture.md](docs/architecture.md) for the design and [docs/decisions/](docs/decisions/) for the decision record. Run instructions land once the first end-to-end path is in.
+> **Status: v1 runs end-to-end.** The full pipeline — including the refuse-capable verifier and the bounded control loop — runs end to end; a real, unedited example lives under [examples/](examples/). v1 is a deliberately scoped first version — see [docs/architecture.md](docs/architecture.md) §6 for what ships now versus what is designed-not-yet-shipped.
 
 ## What it does
 
@@ -32,7 +32,7 @@ Each run scaffolds a complete, traceable folder at the path you give it — the 
 
 ## Reproducing a run
 
-_Coming with the first end-to-end build stage._
+A complete, unedited example lives under [examples/](examples/) — a GTM market-opportunity brief built from web, OpenAlex, and World Bank sources. Read it in trace order: `brief.md` → `decompose/` → `select/` → `retrieve/` → `consolidate/` → `verify/contestation.md` → `controller/loop-log.md` → `synthesis/result.md`. Because every source in that run is free and keyless, the central result is re-runnable from the same brief.
 
 ## License
 

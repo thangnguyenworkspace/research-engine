@@ -48,7 +48,7 @@ The controller decides what the engine does after each cycle. Its defining const
 | Gap | What is missing | Unanswered sub-questions + newly-surfaced needs | supplement-gap / explore-adjacent |
 | Contradiction | Conflict among sources or a verifier refusal | Count of source-conflicts + `unsupported/refuse` verdicts | adversarial-round / re-research |
 
-**The priority ladder** (deterministic; first match wins), evaluated each cycle after the governor's budget/depth check:
+**Each cycle the controller stops or routes, in this order:** stop with `criterion-met` if the success criterion holds (coverage ≥ 0.8, confidence ≥ 0.7, no contradiction); else force-stop with `governor` if the cycle ceiling is reached (the backstop that guarantees termination, carrying any standing refusal honestly into the result); else apply the priority ladder (deterministic; first match wins):
 
 ```
 1. refusal or contradiction pending?  -> adversarial-round / re-research   (never synthesize over a refuted load-bearing claim)

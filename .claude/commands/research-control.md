@@ -28,8 +28,8 @@ Each is a concrete computation, not a feel. State the numbers.
 
 Check in this exact order. First match wins.
 
-1. **GOVERNOR (hard backstop, checked FIRST).** The v1 cycle ceiling by depth: `quick = 1`, `standard = 2`, `deep = 3`. If the current cycle number has reached the ceiling, force `STOP` with stop-reason `governor`, regardless of every signal and the ladder below. The run synthesizes from what it has.
-2. **MEASURABLE STOP.** If `coverage ≥ 0.8` AND `confidence ≥ 0.7` AND `contradiction = 0`, emit `STOP` with stop-reason `criterion-met`.
+1. **MEASURABLE STOP (success).** If `coverage ≥ 0.8` AND `confidence ≥ 0.7` AND `contradiction = 0`, emit `STOP` with stop-reason `criterion-met`. This is the success stop, checked first so that a run which both meets the criterion AND sits at the governor ceiling reports the meaningful reason — it succeeded — not merely that it ran out of budget.
+2. **GOVERNOR (hard backstop).** The v1 cycle ceiling by depth: `quick = 1`, `standard = 2`, `deep = 3`. If the criterion is not met and the current cycle number has reached the ceiling, force `STOP` with stop-reason `governor` — the run is out of budget; it synthesizes from what it has, carrying any standing refusals or gaps honestly into the result. This guarantees termination.
 3. **PRIORITY LADDER** (architecture §3; first match wins):
    1. refusal or contradiction pending (`contradiction > 0`) → `re-research` — target the sub-questions / claims behind the refusals and tensions. Never synthesize over a refuted load-bearing claim.
    2. gap present (`gap` non-empty) → `supplement-gap` — target the gap sub-questions.

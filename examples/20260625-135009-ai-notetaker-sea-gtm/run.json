@@ -1,0 +1,13 @@
+{
+  "run_id": "20260625-135009-ai-notetaker-sea-gtm",
+  "brief_digest": "Assess the market opportunity for an AI sales-call notetaker targeting SMB sales teams in Southeast Asia (focus: Vietnam, Indonesia) — delivered as a one-page opportunity brief for a founding GTM lead.",
+  "sources_used": [
+    { "source": "Web", "access_tier": "open" },
+    { "source": "OpenAlex", "access_tier": "open" },
+    { "source": "World Bank", "access_tier": "open" }
+  ],
+  "reproducibility": "reproducible",
+  "cycles": 2,
+  "stop_reason": "criterion-met",
+  "grounding": { "supported": 33, "checked": 33, "refused": 0 }
+}
