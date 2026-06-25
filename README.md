@@ -66,7 +66,7 @@ free stack; the question is recorded as genuinely unanswered (CLM-31).
 ## Quickstart
 
 ```bash
-git clone <repo-url> research-engine
+git clone https://github.com/thangnguyenworkspace/research-engine.git
 cd research-engine
 # Open the repo in Claude Code, then invoke the composer skill:
 #   /research
