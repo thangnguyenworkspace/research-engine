@@ -1,6 +1,6 @@
 # Conventions
 
-The naming, folder, and trace rules every part of the engine follows. The point is that any run — and any artifact inside it — is predictable, navigable, and traceable by a reader who has never seen it before. These conventions are product surface: a reviewing agent ingests the trace tree to report what the engine is, so the structure has to be legible on its own.
+The naming, folder, and trace rules every part of the engine follows. The point is that any run, and any artifact inside it, is predictable, navigable, and traceable by a reader who has never seen it before. These conventions are product surface: a reviewing agent ingests the trace tree to report what the engine is, so the structure has to be legible on its own.
 
 ## 1. Repository layout
 
@@ -35,7 +35,7 @@ Every run scaffolds one folder at the brief's `output_path`, named with the run 
 
 ```
 <output_path>/<run-id>/
-├── brief.md                     the locked brief — the input contract for this run
+├── brief.md                     the locked brief: the input contract for this run
 ├── decompose/
 │   └── sub-questions.md         SQ-01 … SQ-NN, each with a claim type
 ├── select/
@@ -47,7 +47,7 @@ Every run scaffolds one folder at the brief's `output_path`, named with the run 
 │   └── synthesis.draft.md       working synthesis; every claim tagged CLM-NN → sources
 ├── verify/
 │   ├── contestation.md          per claim: challenge, evidence check, verdict (the live/final cycle)
-│   └── contestation.cycle-NN.md  a superseded cycle, archived before a remediation re-ran the verifier — keeps a refusal that drove a re-research inspectable
+│   └── contestation.cycle-NN.md  a superseded cycle, archived before a remediation re-ran the verifier; keeps a refusal that drove a re-research inspectable
 ├── controller/
 │   └── loop-log.md              per cycle: signals read → action taken → why
 ├── synthesis/
@@ -79,8 +79,8 @@ Numbering starts at `01` within its scope (sub-questions run engine-wide; source
 
 Each run is labelled by the weakest source it depended on:
 
-- **reproducible** — every source was free/keyless or free-key; a stranger can re-run and get the same central result.
-- **checkable** — at least one paid or gated source was load-bearing; the result can be checked against the recorded trace but not freely re-run. The `run.json` names which sources forced the label.
+- **reproducible**: every source was free/keyless or free-key; a stranger can re-run and get the same central result.
+- **checkable**: at least one paid or gated source was load-bearing; the result can be checked against the recorded trace but not freely re-run. The `run.json` names which sources forced the label.
 
 Never label a run `reproducible` when a paid source carried a load-bearing claim.
 
@@ -88,4 +88,5 @@ Never label a run `reproducible` when a paid source carried a load-bearing claim
 
 - Prose is not hard-wrapped: one paragraph is one line.
 - Plain, factual voice. State what a thing is and does; let the artifacts carry the weight.
+- No em dashes. Use a colon, a comma, a semicolon, or two sentences. An em dash is a common AI tell, and the repo's prose is written to read as deliberately human.
 - Honesty about provenance is absolute: never imply a source was consulted that was not, or a capability shipped that was only designed.
