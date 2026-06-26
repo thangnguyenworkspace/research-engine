@@ -1,4 +1,4 @@
-# Local build artifact — the raw build reasoning, not part of the public evidence
+# Local build artifact: the raw build reasoning, not part of the public evidence
 decision-log.md
 
 # Ad-hoc run traces land here by default; the shipped sample lives under examples/ (runs/.gitkeep preserves the dir)
