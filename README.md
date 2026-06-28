@@ -91,6 +91,7 @@ research-engine/
 ├── CLAUDE.md            the same orientation, read by Claude Code
 ├── repo-manifest.json   machine-readable root manifest: what, maturity, type, entry, boundaries
 ├── LICENSE              MIT
+├── .gitignore           excludes secrets, real config, and generated runs
 ├── .claude/
 │   ├── commands/        the skills: research (composer) + research-{verb} leaves
 │   └── agents/          agent definitions, incl. the independent verifier
